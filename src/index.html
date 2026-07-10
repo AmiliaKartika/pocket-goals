@@ -10,45 +10,50 @@
     }
   </style> -->
 </head>
-<body class="py-6 px-16 font-sans bg-slate-100"> 
-    <header class="flex justify-center p-2">
-        <h1 class="text-4xl font-sans font-semibold">💸Goals Finance Pockets</h1>
-    </header>   
-    <main class="m-6">
-        <section>
-            <div class="card-tambah-goals p-8 bg-white/90 backdrop-blur-md shadow-md border-olive-500 rounded-2xl ">
-                <h2 class="text-gray-500 font-bold mb-6 text-lg tracking-wide">🎯 Tambah Goals Baru</h2>
-                <form action="" class="lg:flex flex-wrap items-end gap-4 justify-between grid grid-cols-1 md:grid-cols-2">
-                    <div class="flex flex-col gap-2 flex-1">
-                        <label for="goalFormTitleInput">Keterangan</label>
-                        <input type="text" id="goalFormTitleInput" placeholder="Masukkan Goals" class=" bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
-                    </div>
-                    <div class="flex flex-col gap-2 flex-1">
-                        <label for="goalFormTargetInput">Nominal (Rp)</label>
-                        <input type="int" id="goalFormTargetInput" placeholder="50000" class="bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
-                    </div>
-                    <div class="flex flex-col gap-2 flex-1">
-                        <label for="goalFormDateInput">Tanggal</label>
-                        <input type="date" id="goalFormDateInput" class="bg-white border-2 border-neutral-400 rounded-lg  py-2 px-4 ">
-                    </div>
-                    <div class="flex flex-col gap-2 flex-1">
-                        <label for="goalFormCategoryInput">Kategori</label>
-                        <select id="goalFormCategoryInput" class="bg-white border-2 border-neutral-400 rounded-lg  py-2 px-4 ">
-                            <option value="" disabled selected>Pilih salah satu</option>
-                            <option value="Needs">Needs</option>
-                            <option value="Wants">Wants</option>
-                        </select>
-                    </div>     
-                    <button class="md:col-span-2 w-full lg:w-auto lg:px-6 py-2 border-2 bg-gray-800 hover:bg-gray-950 text-amber-50 rounded-lg font-medium">Tambah</button>  
-                </form>
-            </div>
-        </section>
-        <section>
-            <div class="card-tambah-goals p-8 bg-white/80 backdrop-blur-md shadow-md border-olive-500 rounded-2xl my-10">
-                 <h2 class="text-gray-500 font-bold mb-6 text-lg tracking-wide">🎯 Daftar Goals</h2>
-            </div>
-        </section>
-    </main>
+<body class="font-sans bg-slate-100 flex justify-center p-6"> 
+    <div class="mx-auto flex flex-col gap-7">
+        <!---max-w-6xl mx-auto px-6 py-6 flex flex-col gap-7 -->
+        <header class="flex justify-center items-center py-6">
+            <h1 class="text-4xl font-sans font-semibold">💸Goals Finance Pockets</h1>
+        </header> 
+
+        <main class="flex flex-col gap-4">
+            <section class="goal-form-section ">
+                <div class="goal-form-section__card bg-white/90 backdrop-blur-md shadow-md border rounded-2xl flex-col min-w-0 p-6">
+                    <h2 class="text-gray-500 font-bold mb-4 text-lg tracking-wide">🎯 Tambah Goals Baru</h2>
+                    <form id="goalForm" class="lg:flex flex-wrap items-end gap-4 justify-between grid grid-cols-1 md:grid-cols-2">
+                        <div class="flex flex-col gap-2 flex-1">
+                            <label for="goalFormTitleInput">Keterangan</label>
+                            <input type="text" id="goalFormTitleInput" placeholder="Masukkan Goals" class=" bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
+                        </div>
+                        <div class="flex flex-col gap-2 flex-1">
+                            <label for="goalFormTargetInput">Nominal (Rp)</label>
+                            <input type="int" id="goalFormTargetInput" placeholder="50000" class="bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
+                        </div>
+                        <div class="flex flex-col gap-2 flex-1">
+                            <label for="goalFormDateInput">Tanggal</label>
+                            <input type="date" id="goalFormDateInput" class="bg-white border-2 border-neutral-400 rounded-lg  py-2 px-4 ">
+                        </div>
+                        <div class="flex flex-col gap-2 flex-1">
+                            <label for="goalFormCategoryInput">Kategori</label>
+                            <select id="goalFormCategoryInput" class="bg-white border-2 border-neutral-400 rounded-lg  py-2 px-4 ">
+                                <option value="" disabled selected>Pilih salah satu</option>
+                                <option value="Needs">Needs</option>
+                                <option value="Wants">Wants</option>
+                            </select>
+                        </div>     
+                        <button id="button-form"  class="md:col-span-2 w-full lg:w-auto lg:px-6 py-2 border-2 bg-gray-800 hover:bg-gray-950 text-amber-50 rounded-lg font-medium">Tambah</button>  
+                    </form>
+                </div>
+            </section>
+            <section  class="flex flex-col gap-5 ">
+                <h2  class="text-gray-500 text-lg font-bold flex justify-center items-center">Daftar Goals</h2>
+                <div id="goalsList"  class="flex flex-col gap-4">
+
+                </div>
+            </section>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
