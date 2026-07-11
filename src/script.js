@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         goals.push(objectGoal);
 
         document.dispatchEvent(new Event(RENDER_EVENT));
+        saveData();
     }    
     
 
@@ -122,9 +123,73 @@ document.addEventListener('DOMContentLoaded', function() {
     submitGoal.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        const title = document.getElementById('goalFormTitleInput').value;
+        const nominal = document.getElementById('goalFormTargetInput').value;
+        const targetDate = document.getElementById('goalFormDateInput').value;
+        const today = new Date();
+
+        if (title.trim() === '') {
+            alert('Keterangan entri transaksi tidak boleh  kosong/blank!');
+            return;
+        }
+
+        if (Number(nominal) < 1 || nominal.trim() === '') {
+            alert('nilai isian target harus mutlak berupa hitungan  (min Rp1)');
+            return;
+        }
+
+        if (new Date(targetDate) < today) {
+            alert('Tanggal tidak boleh masa lalu!');
+            return;
+        }
+
+
         addGoal();
+
+        saveData();
 
         submitGoal.reset();
     })
+
+
+    const SAVED_EVENT = 'saved-goal';
+    const STORAGE_KEY = 'GOAL_TRACKER';
+
+    function isStorageExist() {
+        if (typeof(Storage) === undefined) {
+            alert('Browser kamu tidak mendukung local storage!');
+            return false;
+        }
+        return true;
+    }
+
+    function saveData() {
+        if(isStorageExist()) {
+            const parsed = JSON.stringify(goals);
+            localStorage.setItem(STORAGE_KEY, parsed);
+            document.dispatchEvent(new Event(SAVED_EVENT));
+        }
+    }
+
+    function loadDataFromStorage() {
+        const serializedData = localStorage.getItem(STORAGE_KEY);
+        let data = JSON.parse(serializedData);
+
+        if(data !== null) {
+            for(const goal of data) {
+                goals.push(goal);
+            }
+        }
+
+        document.dispatchEvent(new Event(RENDER_EVENT));
+    }
+
+    if(isStorageExist()) {
+        loadDataFromStorage();
+    }
+
+
+
+    
     
 })
