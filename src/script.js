@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
             goal, 
             target,
             date,
-            category
+            category,
+            transactions: []
         }
     }
 
@@ -71,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const linkDetails = document.createElement('a');
         linkDetails.innerText = "Lihat Details >";
-        linkDetails.href = "#";
 
         const containerLinkDetails = document.createElement('div');
         containerLinkDetails.classList.add('flex', 'items-center');
@@ -103,7 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const containerCard = document.createElement('div');
         containerCard.classList.add('p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
-        containerCard.append(containerElementCard)
+        containerCard.append(containerElementCard);
+
+        console.log(goalObject.id);
+
+        containerLinkDetails.addEventListener("click", function() {
+            linkDetails.href = `details.html?id=${goalObject.id}`;
+        });
 
         return containerCard;
 
@@ -188,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
         loadDataFromStorage();
     }
 
+
+    
 
 
     

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Halaman Details</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./output.css" rel="stylesheet">
+    </head>
+    <body class="font-sans bg-slate-100">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-5">
+            <header class="py-4"> 
+                <h2 class="text-4xl font-sans font-semibold" id="goalTitle">Keterangan</h2>
+            </header>
+            <main  class="flex flex-col gap-6">
+                <section class="grid grid-cols-3 gap-6 w-full">
+                    <div class="p-6 bg-white border rounded-[20px] flex flex-col min-w-0 flex-1">
+                        <h3 class="font-semibold text-xl">Target</h3>
+                        <p class="text-4xl" id="targetAmount">Rp 0</p>
+                    </div>
+
+                    <div class="p-4 bg-white border rounded-[20px] flex flex-col min-w-0 flex-1">
+                        <h3 class="font-semibold text-xl">Saat Ini</h3>
+                        <p class="text-4xl" id="targetTerpenuhi">Rp 0</p>
+                    </div>
+
+                    <div class="p-4 bg-white border rounded-[20px] flex flex-col min-w-0 flex-1">
+                        <h3 class="font-semibold text-xl">Harus Cari</h3>
+                        <p class="text-4xl" id="sisaTarget">Rp 0</p>
+                    </div>
+
+                </section>
+                <section>
+                    <div class="goal-form-section__card bg-white/90 backdrop-blur-md shadow-md border rounded-2xl flex-col min-w-0 p-6">
+                        <form id="transactionForm" class="lg:flex flex-wrap items-end gap-4 justify-between grid grid-cols-1 md:grid-cols-2">
+                            <div class="flex flex-col gap-2 flex-1">
+                                <label for="transactionKeteranganInput">Keterangan</label>
+                                <input type="text" id="detailsTitleInput" placeholder="Masukkan Goals" class=" bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
+                            </div>
+                            <div class="flex flex-col gap-2 flex-1">
+                                <label for="transactionNominalInput">Nominal (Rp)</label>
+                                <input type="int" id="detailsNominalInput" placeholder="50000" class="bg-white border-2 border-neutral-400 rounded-lg py-2 px-4 ">
+                            </div>
+                            <div class="flex flex-col gap-2 flex-1">
+                                <label for="transactionDateInput">Tanggal</label>
+                                <input type="date" id="detailsDateInput" class="bg-white border-2 border-neutral-400 rounded-lg  py-2 px-4 ">
+                            </div>
+                            <button id="button-form"  class="md:col-span-2 w-full lg:w-auto lg:px-6 py-2 border-2 bg-gray-800 hover:bg-gray-950 text-amber-50 rounded-lg font-medium">Tambah</button>  
+                        </form>
+                    </div>
+                </section>
+                <section>
+                    <div class="goal-form-section__card bg-white/90 backdrop-blur-md shadow-md border rounded-2xl flex-col min-w-0 p-6">
+                        <div class="flex justify-around">
+                            <h4>Keterangan</h4>
+                            <h4>Nominal</h4>
+                            <h4>Tanggal</h4>
+                        </div>
+                        <div class="flex justify-around text-center">
+                            <p>Turnitin</p>
+                            <p>Rp50,000</p>
+                            <p>17 Juli 2026</p>
+                        </div>
+                        <hr class="m-2">
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script src="details.js"></script>
+    </body>
+</html>
