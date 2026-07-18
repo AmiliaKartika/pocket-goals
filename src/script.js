@@ -105,8 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         containerCard.classList.add('p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
         containerCard.append(containerElementCard);
 
-        console.log(goalObject.id);
-
         containerLinkDetails.addEventListener("click", function() {
             linkDetails.href = `details.html?id=${goalObject.id}`;
         });

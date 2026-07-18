@@ -41,8 +41,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function makeTransaction(transactionObject) {
-        const ket = document.createElement('p');
+        const containerTransaction = document.createElement('tr');
+        containerTransaction.classList.add('hover:bg-gray-50');
+
+        const keterangan = document.createElement('td');
+        keterangan.classList.add('px-6', 'py-4');
+        keterangan.innerText = transactionObject.keterangan;
+
+        const nominal = document.createElement('td');
+        nominal.classList.add('px-6', 'py-4', 'text-center');
+        nominal.innerText = `Rp ${Number(transactionObject.nominal).toLocaleString("id-ID")}`;
+
+        const tanggal = document.createElement('td');
+        tanggal.classList.add('px-6', 'py-4', 'text-center');
+        tanggal.innerText = transactionObject.detailsDate;
+
+        const aksi = document.createElement('td');
+        aksi.classList.add('px-6', 'py-4', 'text-center');
+
+        const edit = document.createElement('a');
+        edit.innerText = "✏️";
+        edit.classList.add('px-4');
+        edit.href = "";
+
+        const hapus = document.createElement('a');
+        hapus.innerText = "🗑️";
+        hapus.classList.add('px-4');
+        hapus.href = "";
+
+        aksi.append(edit, hapus);
+        containerTransaction.append(keterangan, nominal, tanggal, aksi);
+
+        return containerTransaction;
+
     }
+
+    document.addEventListener(RENDER_EVENT, function() {
+        const transactionsList = document.getElementById('transactionsList');
+        transactionsList.innerHTML = '';
+
+        selectedGoal.transactions.sort((a, b) => {
+            return new Date(b.detailsDate) - new Date(a.detailsDate);
+        });
+
+        for (const transactionItem of selectedGoal.transactions) {
+            const transactionElement= makeTransaction(transactionItem);
+            transactionsList.append(transactionElement);
+        }
+    })
+
+    document.dispatchEvent(new Event(RENDER_EVENT));
 
     submitTransaction.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -104,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
     }
+
 
 
 });
