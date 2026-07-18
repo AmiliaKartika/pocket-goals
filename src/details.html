@@ -17,7 +17,7 @@
                 <h2 class="text-4xl font-sans font-semibold" id="goalTitle">Keterangan</h2>
             </header>
             <main  class="flex flex-col gap-6">
-                <section class="grid grid-cols-3 gap-6 w-full">
+                <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div class="p-6 bg-white border rounded-[20px] flex flex-col min-w-0 flex-1">
                         <h3 class="font-semibold text-xl">Target</h3>
                         <p class="text-4xl" id="targetAmount">Rp 0</p>
@@ -55,17 +55,36 @@
                 </section>
                 <section>
                     <div class="goal-form-section__card bg-white/90 backdrop-blur-md shadow-md border rounded-2xl flex-col min-w-0 p-6">
-                        <div class="flex justify-around">
-                            <h4>Keterangan</h4>
-                            <h4>Nominal</h4>
-                            <h4>Tanggal</h4>
-                        </div>
-                        <div class="flex justify-around text-center">
-                            <p>Turnitin</p>
-                            <p>Rp50,000</p>
-                            <p>17 Juli 2026</p>
-                        </div>
-                        <hr class="m-2">
+                        <table class="w-full table-fixed">
+                            <thead class="bg-slate-50 border-b border-gray-300">
+                                <tr>
+                                    <th class="px-6 py-4 text-left">Keterangan</th>
+                                    <th class="px-6 py-4 text-center">Nominal</th>
+                                    <th class="px-6 py-4 text-center">Tanggal</th>
+                                    <th class="px-6 py-4 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4">Turnitin</td>
+                                    <td class="px-6 py-4 text-center">Rp100,000</td>
+                                    <td class="px-6 py-4 text-center">17 Juli 2026</td>
+                                    <td class="px-6 py-4 text-center">🗑️ ✏️</td>
+                                </tr>
+                                <tr class=" hover:bg-gray-50">
+                                    <td class="px-6 py-4">Turnitin</td>
+                                    <td class="px-6 py-4 text-center">Rp100,000</td>
+                                    <td class="px-6 py-4 text-center">17 Juli 2026</td>
+                                    <td class="px-6 py-4 text-center">🗑️ ✏️</td>
+                                </tr>
+                                <tr class=" hover:bg-gray-50">
+                                    <td class="px-6 py-4">Turnitin</td>
+                                    <td class="px-6 py-4 text-center">Rp100,000</td>
+                                    <td class="px-6 py-4 text-center">17 Juli 2026</td>
+                                    <td class="px-6 py-4 text-center">🗑️ ✏️</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </main>
