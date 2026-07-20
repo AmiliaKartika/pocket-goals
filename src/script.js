@@ -117,6 +117,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const goalsList = document.getElementById('goalsList');
         goalsList.innerHTML = '';
 
+        // goals.sort((a,b) => {
+        //     const categoryOrder = {
+        //         Needs: 1,
+        //         Wants: 2
+        //     };
+
+        //     return categoryOrder[a.category] - categoryOrder[b.category];
+        // });
+
         for (const goalsItem of goals) {
             const cardElement = makeGoal(goalsItem);
             goalsList.append(cardElement);

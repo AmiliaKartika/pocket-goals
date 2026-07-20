@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedGoal = goals.find(goal => goal.id === goalID);
     const RENDER_EVENT = 'render-detail-transaction';
     const submitTransaction = document.getElementById('transactionForm');
+    let totalTerpenuhi = 0;
+    let sisaTarget = 0;
+    let isEditingID = null;
 
     document.getElementById("goalTitle").textContent = selectedGoal.goal;
     updateDashboard();
@@ -59,18 +62,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const aksi = document.createElement('td');
         aksi.classList.add('px-6', 'py-4', 'text-center');
 
-        const edit = document.createElement('a');
+        const edit = document.createElement('button');
         edit.innerText = "✏️";
         edit.classList.add('px-4');
-        edit.href = "";
 
-        const hapus = document.createElement('a');
+        const hapus = document.createElement('button');
         hapus.innerText = "🗑️";
         hapus.classList.add('px-4');
-        hapus.href = "";
 
         aksi.append(edit, hapus);
         containerTransaction.append(keterangan, nominal, tanggal, aksi);
+
+        hapus.addEventListener('click', function() {
+            removeTransaction(transactionObject.idTransaction);
+            updateDashboard();
+        })
+
+        edit.addEventListener('click', function() {
+            editTransaction(transactionObject);
+        })
 
         return containerTransaction;
 
@@ -109,9 +119,43 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        addTransaction();
+        if (isEditingID !== null) {
+            console.log("Mode update aktif untuk ID:", isEditingID);
+            const transactionIndex = findTransactionIdx(isEditingID);
+
+            if(transactionIndex !== undefined && transactionIndex !== -1){
+                const oldTransaction = selectedGoal.transactions[transactionIndex];
+
+                totalTerpenuhi -= Number(oldTransaction.nominal);
+                sisaTarget += Number(oldTransaction.nominal);
+            }
+
+            const newKeterangan = document.getElementById('detailsTitleInput').value;
+            const newNominal = document.getElementById('detailsNominalInput').value;
+            const newDetailsDate = document.getElementById('detailsDateInput').value;
+
+            selectedGoal.transactions[transactionIndex] = {
+                idTransaction: isEditingID,
+                keterangan: newKeterangan,
+                nominal: newNominal,
+                detailsDate: newDetailsDate
+            };
+
+            totalTerpenuhi += Number(newNominal);
+            sisaTarget -= Number(newNominal);
+
+            isEditingID = null;
+        } else {
+            addTransaction();
+        }
+
+        updateDashboard();
+        document.dispatchEvent(new Event(RENDER_EVENT));
         saveData();
         submitTransaction.reset();
+
+        const submitButton = document.getElementById('button-form');
+        submitButton.innerText = 'Simpan';
     })
 
 
@@ -139,12 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const sisa = document.getElementById('sisaTarget');
         const totalTarget = Number(selectedGoal.target);
 
-        const totalTerpenuhi = selectedGoal.transactions.reduce(
+        totalTerpenuhi = selectedGoal.transactions.reduce(
             (total, transaction) => total + Number(transaction.nominal),
             0
         );
 
-        const sisaTarget = totalTarget - totalTerpenuhi;
+        sisaTarget = totalTarget - totalTerpenuhi;
 
         target.textContent = `Rp ${totalTarget.toLocaleString('id-ID')}`;
         terpenuhi.textContent = `Rp ${totalTerpenuhi.toLocaleString('id-ID')}`;
@@ -153,6 +197,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    function findTransactionIdx(transactionID) {
+        for (const index in selectedGoal.transactions) {
+            if (selectedGoal.transactions[index].idTransaction === transactionID) {
+                return index;
+            }
+        }
+    }
 
+    async function removeTransaction(transactionID) {
+        const transactionTarget = findTransactionIdx(transactionID);
+
+        if (transactionTarget !== -1) {
+            const deleteTransaction = selectedGoal.transactions[transactionTarget];
+
+            totalTerpenuhi -= Number(deleteTransaction.nominal);
+            sisaTarget += Number(deleteTransaction.nominal);
+
+            selectedGoal.transactions.splice(transactionTarget, 1);
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            updateDashboard();
+            saveData();
+        }
+    }
+
+    function editTransaction(transactionObject) {
+        document.getElementById('detailsTitleInput').value = transactionObject.keterangan;
+        document.getElementById('detailsNominalInput').value =  transactionObject.nominal;
+        document.getElementById('detailsDateInput').value = transactionObject.detailsDate;
+
+        const editButton = document.getElementById('button-form');
+        editButton.innerText = 'Update';
+
+        isEditingID = transactionObject.idTransaction;
+        
+    }
 
 });
