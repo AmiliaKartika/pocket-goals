@@ -73,9 +73,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const linkDetails = document.createElement('a');
         linkDetails.innerText = "Lihat Details >";
 
+        const containerSetting = document.createElement('div');
+        containerSetting.classList.add('relative');
+
+        const buttonSetting = document.createElement('button');
+        buttonSetting.classList.add('setting-btn', 'p-2');
+        
+        const iconSetting = document.createElement('i');
+        iconSetting.classList.add('fa-solid', 'fa-ellipsis-vertical');
+
+        buttonSetting.append(iconSetting);
+
+        const containerMenuSettingCard = document.createElement('div');
+        containerMenuSettingCard.classList.add('menu', 'hidden', 'absolute', 'right-0', 'mt-2', 'w-36', 'bg-white', 'rounded-lg', 'shadow-lg', 'border');
+
+        const buttonEditCard = document.createElement('button');
+        buttonEditCard.classList.add('w-full', 'text-left', 'px-4', 'py-2', 'hover:bg-gray-100');
+        buttonEditCard.innerText = "✏️ Edit";
+
+        const buttonDeleteCard = document.createElement('button');
+        buttonDeleteCard.classList.add('w-full', 'text-left', 'px-4', 'py-2', 'text-red-500', 'hover:bg-gray-100');
+        buttonDeleteCard.innerText = "🗑 Delete";
+        
+        containerMenuSettingCard.append(buttonDeleteCard, buttonEditCard);
+        containerSetting.append(buttonSetting, containerMenuSettingCard);
+
         const containerLinkDetails = document.createElement('div');
         containerLinkDetails.classList.add('flex', 'items-center');
-        containerLinkDetails.append(linkDetails);
+        containerLinkDetails.append(linkDetails, containerSetting);
 
         const containerUp = document.createElement('div');
         containerUp.classList.add('flex', 'justify-between');
@@ -201,6 +226,27 @@ document.addEventListener('DOMContentLoaded', function() {
         loadDataFromStorage();
     }
 
+
+    const goalsList = document.getElementById("goalsList");
+
+    goalsList.addEventListener("click", function(e){
+
+        const settingBtn = e.target.closest(".setting-btn");
+
+        if(settingBtn){
+
+            const menu = settingBtn.nextElementSibling;
+
+            document.querySelectorAll(".menu").forEach(item=>{
+                if(item !== menu){
+                    item.classList.add("hidden");
+                }
+            });
+
+            menu.classList.toggle("hidden");
+        }
+
+    });
 
     
 
