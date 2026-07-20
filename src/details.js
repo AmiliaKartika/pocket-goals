@@ -206,6 +206,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function removeTransaction(transactionID) {
+        const result = await Swal.fire({
+            title: "Anda yakin ingin menghapus transaksi ini?",
+            text: "Data yang telah dihapus tidak dapat dikembalikan.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Ya, Hapus",
+            cancelButtonText: "Batal"
+        });
+
+        if(!result.isConfirmed) return;
+
         const transactionTarget = findTransactionIdx(transactionID);
 
         if (transactionTarget !== -1) {
@@ -218,10 +231,19 @@ document.addEventListener('DOMContentLoaded', function() {
             document.dispatchEvent(new Event(RENDER_EVENT));
             updateDashboard();
             saveData();
+
+            Swal.fire({
+                title: "Berhasil!",
+                text: "Transaksi berhasil dihapus.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
     }
 
     function editTransaction(transactionObject) {
+        
         document.getElementById('detailsTitleInput').value = transactionObject.keterangan;
         document.getElementById('detailsNominalInput').value =  transactionObject.nominal;
         document.getElementById('detailsDateInput').value = transactionObject.detailsDate;
