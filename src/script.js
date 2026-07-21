@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let goals = [];
-    
+    let isEditingID = null;
     const submitGoal = document.getElementById('goalForm');
     const RENDER_EVENT = 'render-goals';
 
@@ -88,11 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
         containerMenuSettingCard.classList.add('menu', 'hidden', 'absolute', 'right-0', 'mt-2', 'w-36', 'bg-white', 'rounded-lg', 'shadow-lg', 'border');
 
         const buttonEditCard = document.createElement('button');
-        buttonEditCard.classList.add('w-full', 'text-left', 'px-4', 'py-2', 'hover:bg-gray-100');
+        buttonEditCard.classList.add('editCard','w-full', 'text-left', 'px-4', 'py-2', 'hover:bg-gray-100');
         buttonEditCard.innerText = "✏️ Edit";
 
         const buttonDeleteCard = document.createElement('button');
-        buttonDeleteCard.classList.add('w-full', 'text-left', 'px-4', 'py-2', 'text-red-500', 'hover:bg-gray-100');
+        buttonDeleteCard.classList.add('deleteCard','w-full', 'text-left', 'px-4', 'py-2', 'text-red-500', 'hover:bg-gray-100');
         buttonDeleteCard.innerText = "🗑 Delete";
         
         containerMenuSettingCard.append(buttonDeleteCard, buttonEditCard);
@@ -127,12 +127,14 @@ document.addEventListener('DOMContentLoaded', function() {
         containerElementCard.append(containerUp, containerBottom);
 
         const containerCard = document.createElement('div');
-        containerCard.classList.add('p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
+        containerCard.classList.add('card','p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
         containerCard.append(containerElementCard);
 
         containerLinkDetails.addEventListener("click", function() {
             linkDetails.href = `details.html?id=${goalObject.id}`;
         });
+
+        containerCard.dataset.id = goalObject.id;
 
         return containerCard;
 
@@ -158,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     })
 
-    submitGoal.addEventListener('submit', function(event) {
+    submitGoal.addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const title = document.getElementById('goalFormTitleInput').value;
@@ -181,12 +183,45 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        if (isEditingID !== null) {
+            const cardIndex = findCardIdx(isEditingID);
+            
+            const newGoal = document.getElementById('goalFormTitleInput').value;
+            const newNominalTarget = document.getElementById('goalFormTargetInput').value;
+            const newDateTarget = document.getElementById('goalFormDateInput').value;
+            const newCategoryTarget = document.getElementById('goalFormCategoryInput').value;
 
-        addGoal();
+            goals[cardIndex] = {
+                id: isEditingID,
+                goal: newGoal,
+                target: newNominalTarget,
+                date: newDateTarget,
+                category: newCategoryTarget,
+                transactions: goals[cardIndex].transactions
+            };
 
-        saveData();
+            isEditingID = null;
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
+
+            submitGoal.reset();
+
+            const result = await Swal.fire({
+                icon: "success",
+                title: "Berhasil!",
+                text: "Goal berhasil diperbarui.",
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            if (!result.isConfirmed) return;
+        }else {
+            addGoal();
+        }
 
         submitGoal.reset();
+
     })
 
 
@@ -226,10 +261,18 @@ document.addEventListener('DOMContentLoaded', function() {
         loadDataFromStorage();
     }
 
+    function findCardIdx(goalID) {
+        for (const index in goals) {
+            if(goals[index].id === goalID) {
+                return index;
+            }
+        }
+    }
+
 
     const goalsList = document.getElementById("goalsList");
 
-    goalsList.addEventListener("click", function(e){
+    goalsList.addEventListener("click", async function(e){
 
         const settingBtn = e.target.closest(".setting-btn");
 
@@ -246,6 +289,57 @@ document.addEventListener('DOMContentLoaded', function() {
             menu.classList.toggle("hidden");
         }
 
+        const deleteBtn = e.target.closest(".deleteCard");
+        if(deleteBtn) {
+            const result = await Swal.fire({
+                title: "Anda yakin ingin menghapus transaksi ini?",
+                text: "Data yang telah dihapus tidak dapat dikembalikan.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Ya, Hapus",
+                cancelButtonText: "Batal"
+            });
+
+            if(!result.isConfirmed) return;
+            
+            const card = deleteBtn.closest(".card");
+
+            const goalID = Number(card.dataset.id);
+
+            const idx = findCardIdx(goalID);
+
+            goals.splice(idx, 1);
+            saveData();
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        }
+
+        
+        const editBtn = e.target.closest(".editCard");
+
+        if(editBtn) {
+
+            const menu = editBtn.closest(".menu");
+            menu.classList.add("hidden");
+
+            const card = editBtn.closest(".card");
+
+            const goalID = Number(card.dataset.id);
+
+            isEditingID = goalID;
+
+            const goal = goals.find(item => item.id === goalID);
+
+            document.getElementById('goalFormTitleInput').value = goal.goal;
+            document.getElementById('goalFormTargetInput').value = goal.target;
+            document.getElementById('goalFormDateInput').value = goal.date;
+            document.getElementById('goalFormCategoryInput').value = goal.category;
+
+            const updateButton = document.getElementById('button-form');
+            updateButton.innerText = "Update";
+        }
+        
     });
 
     
