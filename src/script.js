@@ -107,27 +107,68 @@ document.addEventListener('DOMContentLoaded', function() {
         containerUp.append(containerTitle, containerLinkDetails);
 
         const nominalTarget = document.createElement('p');
-        nominalTarget.innerText = goalObject.target;
+        nominalTarget.innerText = `Rp ${Number(goalObject.target).toLocaleString("id-ID")}`;
         nominalTarget.classList.add('font-semibold', 'text-gray-700');
 
+        // PROGRESS BAR
+
+        let totalTerkumpul = 0;
+        if (goalObject.transactions && goalObject.transactions.length > 0) {
+            totalTerkumpul = goalObject.transactions.reduce((total, trx) => {
+                return total + parseFloat(trx.nominal);
+            }, 0);
+        }
+
+        const targetMaksimal = parseFloat(goalObject.target);
+        let percentage = (totalTerkumpul/targetMaksimal) * 100;
+
+        if (percentage > 100) {
+            percentage = 100;
+
+        }
+
+        if (isNaN(percentage)) {
+            percentage = 0;
+        }
+
         const percentToTarget = document.createElement('p');
-        percentToTarget.innerText = "0%";
+        percentToTarget.innerText = `${Math.round(percentage)}%`;
 
         const containerTarget = document.createElement('div');
         containerTarget.classList.add('flex', 'items-center', 'justify-between', 'py-2');
         containerTarget.append(nominalTarget, percentToTarget);
 
-        const progressBar = document.createElement('div');
-        progressBar.classList.add('w-full', 'h-3', 'bg-gray-400', 'rounded-full', 'overflow-hidden');
+        const progressBarContainer = document.createElement('div');
+        progressBarContainer.classList.add('w-full', 'h-3', 'bg-gray-400', 'rounded-full', 'overflow-hidden');
+
+        const progressBarFill = document.createElement('div');
+        progressBarFill.classList.add('h-full', 'bg-blue-500', 'rounded-full');
+        
+        if (percentage >= 100) {
+            progressBarFill.classList.add('bg-green-500');
+        } else {
+            progressBarFill.classList.add('bg-blue-500');
+        }
+        
+        progressBarFill.style.width = `${percentage}%`;
+
+        progressBarContainer.append(progressBarFill);
 
         const containerBottom = document.createElement('div');
-        containerBottom.append(containerTarget, progressBar);
+        containerBottom.append(containerTarget, progressBarContainer);
 
         const containerElementCard = document.createElement('div');
         containerElementCard.append(containerUp, containerBottom);
 
         const containerCard = document.createElement('div');
         containerCard.classList.add('card','p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
+        
+        if (percentage >= 100) {
+            containerCard.classList.add('bg-green-200', 'border-green-300');
+        } else {
+            containerCard.classList.add('bg-green/80');
+        }
+        
         containerCard.append(containerElementCard);
 
         containerLinkDetails.addEventListener("click", function() {
@@ -340,11 +381,5 @@ document.addEventListener('DOMContentLoaded', function() {
             updateButton.innerText = "Update";
         }
         
-    });
-
-    
-
-
-    
-    
+    });    
 })
