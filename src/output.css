@@ -243,8 +243,14 @@
   .h-3 {
     height: calc(var(--spacing) * 3);
   }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
   .h-full {
     height: 100%;
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
   }
   .w-36 {
     width: calc(var(--spacing) * 36);

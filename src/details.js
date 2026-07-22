@@ -64,11 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const edit = document.createElement('button');
         edit.innerText = "✏️";
-        edit.classList.add('px-4');
+        edit.classList.add('px-6', 'w-10', 'h-10');
 
         const hapus = document.createElement('button');
         hapus.innerText = "🗑️";
-        hapus.classList.add('px-4');
+        hapus.classList.add('px-6', 'w-10', 'h-10');
 
         aksi.append(edit, hapus);
         containerTransaction.append(keterangan, nominal, tanggal, aksi);
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 
-    submitTransaction.addEventListener('submit', function(event) {
+    submitTransaction.addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const keterangan = document.getElementById('detailsTitleInput').value;
@@ -144,6 +144,22 @@ document.addEventListener('DOMContentLoaded', function() {
             sisaTarget -= Number(newNominal);
 
             isEditingID = null;
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
+            submitTransaction.reset();
+
+            const result = await Swal.fire({
+                icon: "success",
+                title: "Berhasil!",
+                text: "Goal berhasil diperbarui.",
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            if (!result.isConfirmed) return;
+
+            
         } else {
             addTransaction();
         }
