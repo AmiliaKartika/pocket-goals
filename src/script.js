@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         containerTitle.append(title, containerDueDate);
 
         const linkDetails = document.createElement('a');
-        linkDetails.innerText = "Lihat Details >";
+        linkDetails.classList.add('px-4', 'underline');
+        linkDetails.innerText = "View";
 
         const containerSetting = document.createElement('div');
         containerSetting.classList.add('relative');
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const buttonDeleteCard = document.createElement('button');
         buttonDeleteCard.classList.add('deleteCard','w-full', 'text-left', 'px-4', 'py-2', 'text-red-500', 'hover:bg-gray-100');
-        buttonDeleteCard.innerText = "🗑 Delete";
+        buttonDeleteCard.innerText = "🗑️ Delete";
         
         containerMenuSettingCard.append(buttonDeleteCard, buttonEditCard);
         containerSetting.append(buttonSetting, containerMenuSettingCard);
@@ -161,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         containerElementCard.append(containerUp, containerBottom);
 
         const containerCard = document.createElement('div');
-        containerCard.classList.add('card','p-6', 'bg-white/80', 'backdrop-blur-md', 'shadow-md', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
+        containerCard.classList.add('card','p-6', 'bg-white/80', 'backdrop-blur-md', 'border-neutral-200', 'shadow-sm', 'border', 'rounded-2xl', 'flex', 'flex-col', 'gap-4')
         
         if (percentage >= 100) {
             containerCard.classList.add('bg-green-200', 'border-green-300');

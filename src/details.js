@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (isEditingID !== null) {
-            console.log("Mode update aktif untuk ID:", isEditingID);
             const transactionIndex = findTransactionIdx(isEditingID);
 
             if(transactionIndex !== undefined && transactionIndex !== -1){
