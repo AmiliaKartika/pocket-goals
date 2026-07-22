@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const nominalTarget = document.createElement('p');
         nominalTarget.innerText = `Rp ${Number(goalObject.target).toLocaleString("id-ID")}`;
-        nominalTarget.classList.add('font-semibold', 'text-gray-700');
+        nominalTarget.classList.add('font-semibold', 'text-gray-700','text-');
 
         // PROGRESS BAR
 
@@ -185,14 +185,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const goalsList = document.getElementById('goalsList');
         goalsList.innerHTML = '';
 
-        // goals.sort((a,b) => {
-        //     const categoryOrder = {
-        //         Needs: 1,
-        //         Wants: 2
-        //     };
+        const categoryOrder = {
+            Needs: 1,
+            Wants: 2
+        };
 
-        //     return categoryOrder[a.category] - categoryOrder[b.category];
-        // });
+        goals.sort((a,b) => {
+            return categoryOrder[a.category] - categoryOrder[b.category];
+        });
 
         for (const goalsItem of goals) {
             const cardElement = makeGoal(goalsItem);
@@ -289,10 +289,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const serializedData = localStorage.getItem(STORAGE_KEY);
         let data = JSON.parse(serializedData);
 
-        if(data !== null) {
-            for(const goal of data) {
-                goals.push(goal);
-            }
+        goals.length = 0;
+
+        if(data) {
+            goals.push(...data);
+            
         }
 
         document.dispatchEvent(new Event(RENDER_EVENT));
@@ -381,5 +382,10 @@ document.addEventListener('DOMContentLoaded', function() {
             updateButton.innerText = "Update";
         }
         
-    });    
+    });
+
+    window.addEventListener("pageshow", function(event){
+        goals.length = 0;
+        loadDataFromStorage();
+    });
 })

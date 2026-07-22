@@ -255,4 +255,25 @@ document.addEventListener('DOMContentLoaded', function() {
         
     }
 
+    function hitungSelisihHari(date) {
+        const today = new Date();
+        const targetDate = new Date(date);
+
+        const  selisih = targetDate - today;
+
+        const days = Math.ceil(
+            selisih / (1000*60*60*24)
+        );
+
+        if (days > 0) {
+            return `Due in ${days} days`;
+        } else if (days === 0) {
+            return `Due today`;
+        } else {
+            return `Overdue ${Math.abs(days)} days`;
+        }
+    }
+
+    document.getElementById('dueDate').textContent = hitungSelisihHari(selectedGoal.date);
+
 });
