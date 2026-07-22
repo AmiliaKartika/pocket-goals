@@ -1,11 +1,42 @@
-<h1>Goals Finance Pockets</h1>
+# Pocket Goals
 
-<p>Start: 30 June 2026 | 09:00 AM</p>
+Aplikasi sederhana untuk membantu pengguna mengelola target keuangan dan memantau progres tabungan.
 
-<h2>Problem</h2>
-<p>“Sering kehilangan kendali ketika melakukan prioritas keuangan dan kesulitan dalam mengelola alokasi dana antara bills (tagihan wajib/needs) dan keinginan (wants). Hal ini menyebabkan sulitnya memprioritaskan pemenuhan kebutuhan berdasarkan tingkat urgensi dan deadline (tenggat waktu)”</p>
+## 🚀 Features
 
-<h2>Scope Data & Autentikasi</h2>
-<p>Data sementara akan menggunakan penyimpanan lokal di browser (Local Storage) terlebih dahulu (ada kemungkinan akan dikembangkan lebih lanjut menggunakan eksternal database kedepannya)
+- Tambah Goal
+- Edit Goal
+- Hapus Goal
+- Progress Bar
+- Due Date
+- Local Storage
+- CRUD Transaction
+- Responsive UI
 
-Autentikasi: Tidak perlu login, langsung masuk ke halaman utama (karena untuk tahap awal ini masih menggunakan local storage, untuk kedepannya akan dipertimbangkan untuk pengembangan tahap selanjutnya).</p>
+## 🛠 Tech Stack
+
+- HTML
+- Tailwind CSS
+- JavaScript
+- Local Storage
+
+## 📷 Preview
+
+![Home](src/assets/Home.png)
+
+## 📂 Documentation
+
+Dokumentasi lengkap proyek tersedia pada folder **docs/**, meliputi:
+- 🎯 Problem Statement
+- 📌 Project Scope
+- 📄 Functional Requirement Document (FRD)
+- 📊 Use Case Diagram
+- 🌊 Flowchart
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/AmiliaKartika/goals-finance-pockets.git
+cd pocket-goals
+npm install
+npm run dev
