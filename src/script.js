@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const deleteBtn = e.target.closest(".deleteCard");
         if(deleteBtn) {
             const result = await Swal.fire({
-                title: "Anda yakin ingin menghapus transaksi ini?",
+                title: "Anda yakin ingin menghapus goal ini?",
                 text: "Data yang telah dihapus tidak dapat dikembalikan.",
                 icon: "warning",
                 showCancelButton: true,

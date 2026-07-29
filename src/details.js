@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await Swal.fire({
                 icon: "success",
                 title: "Berhasil!",
-                text: "Goal berhasil diperbarui.",
+                text: "Transaksi berhasil diperbarui.",
                 timer: 1500,
                 showConfirmButton: false
             });
