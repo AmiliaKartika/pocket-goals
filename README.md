@@ -32,15 +32,16 @@ https://pocket-goals.vercel.app/
 
 ## 💡 Cara Penggunaan
 
-1. Buka [Live Demo](Masukkan Link Website Kamu Disini), lalu klik tombol **"Tambah"** di halaman utama untuk membuat target tabungan baru.
-2. Isi Keterangan, Nominal Target, Tanggal Deadline, dan Kategori.
-3. Setelah *Goal* terbuat, klik tombol **"Lihat"** pada kartu (*card*) target tersebut.
-4. Di halaman detail, klik **"Tambah Tabungan"** untuk memasukkan uang (misal: "Sisa uang jajan minggu ini").
-5. Progres tabungan akan otomatis bertambah dan warna *card* akan berubah menjadi hijau jika target sudah tercapai!
-
+1. Buka [Pocket Goals](https://pocket-goals.vercel.app/).
+2. Di halaman utama, isi form target tabungan dengan melengkapi **Keterangan, Nominal Target, Tanggal Deadline, dan Kategori**.
+3. Setelah form terisi, klik tombol **"Tambah"** untuk menyimpan target tabungan baru.
+4. Setelah *Goal* terbuat, klik tombol **"View"** pada kartu (*card*) target tersebut.
+5. Di halaman detail, isi nominal uang yang ingin ditabung lalu klik **"Tambah Tabungan"** (misal: keterangan "Sisa uang jajan minggu ini").
+6. Progres tabungan akan otomatis bertambah dan warna *card* akan berubah menjadi hijau jika target sudah tercapai!
+   
 ## 📂 Documentation
 
-Proyek ini dibangun dengan perencanaan sistem yang matang. Dokumentasi lengkap proyek tersedia pada folder **`docs/`**, meliputi:
+Dokumentasi lengkap proyek tersedia pada folder **`docs/`**, meliputi:
 - 🎯 **Problem Statement:** Latar belakang masalah yang diselesaikan.
 - 📌 **Project Scope:** Batasan dan ruang lingkup fitur aplikasi.
 - 📄 **Functional Requirement Document (FRD):** Daftar kebutuhan fungsional sistem.
@@ -53,4 +54,4 @@ Jika kamu ingin menjalankan atau memodifikasi proyek ini di komputer lokal:
 
 1. **Clone repositori**
    ```bash
-   git clone [https://github.com/AmiliaKartika/goals-finance-pockets.git](https://github.com/AmiliaKartika/goals-finance-pockets.git)
+   git clone [[https://github.com/AmiliaKartika/pocket-goals.git]((https://github.com/AmiliaKartika/pocket-goals.git))]
